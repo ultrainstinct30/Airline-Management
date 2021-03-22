@@ -11,7 +11,7 @@
 
     ```app = create_app()```
 
-    ```app.app_context().add()```
+    ```app.app_context().push()```
     
     ```db.create_all()```
 4. ```python run.py``` (default debug mode)

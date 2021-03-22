@@ -11,7 +11,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email (*)', validators=[DataRequired(), Email()])
     address = TextAreaField('Address (*)', validators=[DataRequired()])
     pincode = StringField('Pincode (*)', validators=[DataRequired(), Length(min=6, max=6)])
-    dob = DateField('Date of Birth (dd-mm-yyyy) (*)', validators=[DataRequired()])
+    dob = DateField('Date of Birth (*)', validators=[DataRequired()])
     phnum = StringField('Phone number', validators=[Length(min=10, max=10)])
     gender = SelectField('Gender', choices=[('M', 'Male'), ('F', 'Female'), ('x', 'Rather not say')])
     password = PasswordField('Password (*)', validators=[DataRequired()])

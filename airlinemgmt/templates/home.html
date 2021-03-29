@@ -1,4 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
     <h2>Welcome to airlines</h2>
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ flightsearchform.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Search Flight</legend>
+                <div class="form-group">
+                    {{ flightsearchform.from_city.label(class="form-control-label") }}
+                    {% if flightsearchform.from_city.errors %}
+                        {{ flightsearchform.from_city(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in flightsearchform.from_city.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ flightsearchform.from_city(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ flightsearchform.to_city.label(class="form-control-label") }}
+                    {% if flightsearchform.to_city.errors %}
+                        {{ flightsearchform.to_city(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in flightsearchform.to_city.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ flightsearchform.to_city(class="form-control") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ flightsearchform.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
 {% endblock content %}

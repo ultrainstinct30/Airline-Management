@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for flight in flights %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Flight No. {{ flight.id }}</h5>
+            </div>
+            <small class="article-content">From {{ flight.from_airport.name }}, {{ flight.from_airport.region }}, {{ flight.from_airport.city }}, {{ flight.from_airport.country }}</small></br>
+            <small class="article-content">To {{ flight.to_airport.name }}, {{ flight.to_airport.region }}, {{ flight.to_airport.city }}, {{ flight.to_airport.country }}</small></br>
+            <small class="article-content">On {{ flight.day }} {{ flight.depart_at.strftime('%H:%M') }}, Duration {{ flight.duration.strftime('%H:%M') }}</small></br>
+            <small><a class="article-content" href="{{ url_for('bookings.book_flight', flight_id=flight.id) }}">Book Now</a></small>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content%}

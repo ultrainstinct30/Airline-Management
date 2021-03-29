@@ -21,6 +21,8 @@ class User(db.Model, UserMixin):
     gender = db.Column(db.String(1))
     password = db.Column(db.String(60), nullable=False)
     bookings = db.relationship('Booking', backref='user', lazy=True)
+    employee = db.relationship('Employee', backref='user', lazy=True, uselist=False)
+    is_employee = db.Column(db.Boolean, default=False)
 
     @hybrid_property
     def age(self):
@@ -97,4 +99,25 @@ class Booking(db.Model):
 
     def __repr__(self):
         return f"Booking('{self.id}', '{self.user_id}', '{self.flight_id}', '{self.seat_no}', '{self.travel_date}')"
+
+class Employee(db.Model):
+    position = db.Column(db.String(20), nullable=False)
+    joining_date = db.Column(db.Date, nullable=False)
+    salary = db.Column(db.Integer, nullable=False)
+    id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    pilot = db.relationship('Pilot', backref='employee', lazy=True)
+
+    def __repr__(self):
+        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}')"
+
+class Pilot(db.Model):
+    licence_no = db.Column(db.Integer, nullable=False)
+    experience = db.Column(db.Integer, nullable=False)
+    rank = db.Column(db.String(1));
+    id = db.Column(db.Integer, db.ForeignKey('employee.id'), primary_key=True)
+
+    def __repr__(self):
+        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}')"
+
+    
 

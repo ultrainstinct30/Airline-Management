@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from airlinemgmt import db, bcrypt
-from airlinemgmt.models import User
+from airlinemgmt.models import User, Booking
 from airlinemgmt.users.forms import RegistrationForm, LoginForm
 # from airlinemgmt.users.utils import send_reset_email
 
@@ -47,4 +47,12 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+@users.route("/bookings")
+@login_required
+def bookings():
+    user_bookings = Booking.query.filter_by(user=current_user)\
+    .order_by(Booking.booking_time.desc())
+    return render_template('user_bookings.html', bookings=user_bookings)
+
 

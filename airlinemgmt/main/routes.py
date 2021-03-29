@@ -10,7 +10,7 @@ main = Blueprint('main', __name__)
 def home():
     form = SearchFlightForm()
     if form.validate_on_submit():
-        return redirect(url_for('bookings.resultFlights', from_city=form.from_city.data, to_city=form.to_city.data))
+        return redirect(url_for('bookings.result_flights', from_city=form.from_city.data, to_city=form.to_city.data))
     return render_template('home.html', flightsearchform=form)
 
 # @main.route("/about")

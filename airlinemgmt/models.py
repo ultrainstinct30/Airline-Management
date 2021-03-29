@@ -86,11 +86,15 @@ class Flight(db.Model):
 
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, unique=True)
-    flight_id = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False, unique=True)
-    seat_no = db.Column(db.Integer, nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    flight_id = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    travel_date = db.Column(db.Date, nullable=False)
+    seat_no = db.Column(db.Integer, nullable=False)
     booking_time = db.Column(db.DateTime, nullable=False, server_default=func.now())
 
     def __repr__(self):
-        return f"Booking('{self.id}', '{self.user_id}', '{self.flight_id}', '{self.seat_no}')"
+        return f"Booking('{self.id}', '{self.user_id}', '{self.flight_id}', '{self.seat_no}', '{self.travel_date}')"
 

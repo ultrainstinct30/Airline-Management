@@ -1,2 +1,4 @@
 airlinemgmt/site.db
 *.pyc
+sample_data
+migrations/*

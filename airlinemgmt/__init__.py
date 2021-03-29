@@ -23,10 +23,12 @@ def create_app(config_class=Config):
 
     from airlinemgmt.users.routes import users
     from airlinemgmt.main.routes import main
+    from airlinemgmt.bookings.routes import bookings
     # from airlinemgmt.errors.handlers import errors
 
     app.register_blueprint(users)
     app.register_blueprint(main)
+    app.register_blueprint(bookings)
     # app.register_blueprint(errors)
 
     return app

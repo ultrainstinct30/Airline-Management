@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for stat in status %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Flight No. {{ stat.flight_id }}</h5>
+            </div>
+            <p class="small article-content">From Terminal {{ stat.from_terminal }}, To Terminal {{ stat.to_terminal }}</p>
+            <p class="small article-content">Scheduled Time {{ stat.schedule_time.strftime('%H:%M') }}, Actual Time {{ stat.actual_time.strftime('%H:%M') }}</p>
+            <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_status', status_id=status.id) }}">Delete Status</a></p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

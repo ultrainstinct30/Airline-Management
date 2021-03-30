@@ -44,7 +44,7 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def __repr__(self):
-        return f"User('{self.name}', '{self.email}', '{self.dob}')"
+        return f"User('{self.name}', '{self.email}', '{self.dob}', '{self.gender}')"
 
 
 class Plane(db.Model):
@@ -59,7 +59,7 @@ class Plane(db.Model):
     flight = db.relationship('Flight', backref='plane', lazy=True, uselist=False)
 
     def __repr__(self):
-        return f"Plane('{self.id}', '{self.name}', '{self.manufacturer}')"
+        return f"Plane('{self.id}', '{self.name}', '{self.manufacturer}', '{self.mfd_date}', '{self.capacity}')"
 
 class Airport(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -113,18 +113,18 @@ class Employee(db.Model):
     crew_emp_3 = db.relationship('Crew', backref='employee3', foreign_keys="[Crew.employee3_id]", lazy=True)
 
     def __repr__(self):
-        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}')"
+        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}', '{self.position}', '{self.salary}')"
 
 class Pilot(db.Model):
     licence_no = db.Column(db.Integer, nullable=False)
     experience = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.String(1));
     id = db.Column(db.Integer, db.ForeignKey('employee.id'), primary_key=True)
-    crew_pilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.pilot_id]", lazy=True)
-    crew_copilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.copilot_id]",lazy=True)
+    crew_pilot = db.relationship('Crew', backref='pilot', foreign_keys="[Crew.pilot_id]", lazy=True)
+    crew_copilot = db.relationship('Crew', backref='copilot', foreign_keys="[Crew.copilot_id]",lazy=True)
 
     def __repr__(self):
-        return f"User('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}')"
+        return f"User('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}', '{self.experience}', '{self.rank}')"
 
 class Crew(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -133,6 +133,10 @@ class Crew(db.Model):
     employee1_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
     employee2_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
     employee3_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    crew_status = db.relationship('Status', backref='crew', lazy=True, uselist=False)
+
+    def __repr__(self):
+        return f"User('{self.pilot_id}', '{self.copilot_id}', '{self.employee1_id}', '{self.employee2_id}', '{self.employee3_id}')"
 
 
 class Status(db.Model):
@@ -141,8 +145,11 @@ class Status(db.Model):
     crew_id = db.Column(db.Integer, db.ForeignKey('crew.id'), nullable=False)
     from_terminal = db.Column(db.Integer, nullable=False)
     to_terminal = db.Column(db.Integer, nullable=False)
-    schedule_time = db.Column(db.Time, nullable=False)
-    actual_time = db.Column(db.Time, nullable=False)
+    scheduled_time = db.Column(db.Time, nullable=False)
+    actual_time = db.Column(db.Time)
+
+    def __repr__(self):
+        return f"User('{self.flight_id}', '{self.crew_id}', '{self.from_terminal}', '{self.to_terminal}', '{self.scheduled_time}', '{self.actual_time}')"
 
 
 

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter the following details</legend>
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.manufacturer.label(class="form-control-label") }}
+                    {% if form.manufacturer.errors %}
+                        {{ form.manufacturer(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.manufacturer.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.manufacturer(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.mfd_date.label(class="form-control-label") }}
+                    {% if form.mfd_date.errors %}
+                        {{ form.mfd_date(class="datepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.mfd_date.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.mfd_date(class="datepicker form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.engine_chk.label(class="form-control-label") }}
+                    {% if form.engine_chk.errors %}
+                        {{ form.engine_chk(class="datepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.engine_chk.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.engine_chk(class="datepicker form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.fuel_chk.label(class="form-control-label") }}
+                    {% if form.fuel_chk.errors %}
+                        {{ form.fuel_chk(class="datepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.fuel_chk.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.fuel_chk(class="datepicker form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.part_chk.label(class="form-control-label") }}
+                    {% if form.part_chk.errors %}
+                        {{ form.part_chk(class="datepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.part_chk.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.part_chk(class="datepicker form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.capacity.label(class="form-control-label") }}
+                    {% if form.capacity.errors %}
+                        {{ form.capacity(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.capacity.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.capacity(class="form-control") }}
+                    {% endif %}
+                </div>
+                </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

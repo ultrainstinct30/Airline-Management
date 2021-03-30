@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter the following details</legend>
+                <div class="form-group">
+                    {{ form.plane_id.label(class="form-control-label") }}
+                    {% if form.plane_id.errors %}
+                        {{ form.plane_id(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.plane_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.plane_id(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.from_id.label(class="form-control-label") }}
+                    {% if form.from_id.errors %}
+                        {{ form.from_id(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.from_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.from_id(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.to_id.label(class="form-control-label") }}
+                    {% if form.to_id.errors %}
+                        {{ form.to_id(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.to_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.to_id(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.day.label(class="form-control-label") }}
+                    {% if form.day.errors %}
+                        {{ form.day(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.day.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.day(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.depart_at.label(class="form-control-label") }}
+                    {% if form.depart_at.errors %}
+                        {{ form.depart_at(class="timepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.depart_at.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.depart_at(class="timepicker form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.duration.label(class="form-control-label") }}
+                    {% if form.duration.errors %}
+                        {{ form.duration(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.duration.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.duration(class="form-control") }}
+                    {% endif %}
+                </div>
+                </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

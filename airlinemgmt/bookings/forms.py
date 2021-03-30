@@ -5,7 +5,7 @@ from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
 from airlinemgmt.models import User, Flight
-from datetime import date
+from datetime import datetime
 
 days = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY']
 
@@ -30,5 +30,7 @@ class BookFlightForm(FlaskForm):
     def validate_travel_date(self, travel_date):
         flight = Flight.query.filter_by(id=self.flight_id.data).first()
         if flight is not None:
+            if travel_date.data < datetime.now().date():
+                raise ValidationError('Enter a future date')
             if days[travel_date.data.weekday()] != flight.day:
                 raise ValidationError('Flight does not travel on given date')

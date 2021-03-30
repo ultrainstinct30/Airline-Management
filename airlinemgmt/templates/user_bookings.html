@@ -9,7 +9,7 @@
             <small class="article-content">Name-{{ booking.name }}, Age-{{ booking.age }}</small></br>
             <small class="article-content">Seat No. - {{ booking.seat_no }}</small></br>
             <small class="article-content">From {{ booking.flight.from_airport.name }}, {{ booking.flight.from_airport.region }}, {{ booking.flight.from_airport.city }}, {{ booking.flight.from_airport.country }}</small></br>
-            <small class="article-content">From {{ booking.flight.to_airport.name }} {{ booking.flight.to_airport.region }}, {{ booking.flight.to_airport.city }}, {{ booking.flight.to_airport.country }}</small></br>
+            <small class="article-content">From {{ booking.flight.to_airport.name }}, {{ booking.flight.to_airport.region }}, {{ booking.flight.to_airport.city }}, {{ booking.flight.to_airport.country }}</small></br>
             <small class="article-content">On {{ booking.travel_date }} {{ booking.flight.depart_at.strftime('%H:%M') }}, Duration {{ booking.flight.duration.strftime('%H:%M') }}</small></br>
             <small class="article-content">Booked on {{ booking.booking_time.strftime('%Y-%m-%d %H:%M') }}</small></br>
             <div>

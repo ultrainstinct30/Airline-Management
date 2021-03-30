@@ -22,7 +22,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+              {% if current_user.is_authenticated and current_user.is_admin %}
+              <a class="nav-item nav-link" href="{{ url_for('main.admin') }}">Home</a>
+              {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('main.admin') }}">Home</a>
+              {% endif %}
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">

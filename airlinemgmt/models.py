@@ -82,6 +82,7 @@ class Flight(db.Model):
     depart_at = db.Column(db.Time, nullable=False)
     duration = db.Column(db.Time, nullable=False)
     bookings = db.relationship('Booking', backref='flight', lazy=True)
+    Status = db.relationship('Status', backref='flight', lazy=True)
 
     def __repr__(self):
         return f"Flight('{self.id}', '{self.from_id}', '{self.to_id}', '{self.day}')"
@@ -106,6 +107,9 @@ class Employee(db.Model):
     salary = db.Column(db.Integer, nullable=False)
     id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     pilot = db.relationship('Pilot', backref='employee', lazy=True)
+    crew_emp_1 = db.relationship('Crew', backref='employee1', foreign_keys="[Crew.employee1_id]", lazy=True)
+    crew_emp_2 = db.relationship('Crew', backref='employee2', foreign_keys="[Crew.employee2_id]", lazy=True)
+    crew_emp_3 = db.relationship('Crew', backref='employee3', foreign_keys="[Crew.employee3_id]", lazy=True)
 
     def __repr__(self):
         return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}')"
@@ -115,9 +119,31 @@ class Pilot(db.Model):
     experience = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.String(1));
     id = db.Column(db.Integer, db.ForeignKey('employee.id'), primary_key=True)
+    crew_pilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.pilot_id]", lazy=True)
+    crew_copilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.copilot_id]",lazy=True)
 
     def __repr__(self):
-        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}')"
+        return f"User('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}')"
+
+class Crew(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pilot_id = db.Column(db.Integer, db.ForeignKey('pilot.id'), nullable=False)
+    copilot_id = db.Column(db.Integer, db.ForeignKey('pilot.id'), nullable=False)
+    employee1_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    employee2_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+    employee3_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
+
+
+class Status(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    flight_id = db.Column(db.Integer, db.ForeignKey('flight.id'), nullable=False)
+    crew_id = db.Column(db.Integer, db.ForeignKey('crew.id'), nullable=False)
+    from_terminal = db.Column(db.Integer, nullable=False)
+    to_terminal = db.Column(db.Integer, nullable=False)
+    schedule_time = db.Column(db.Time, nullable=False)
+    actual_time = db.Column(db.Time, nullable=False)
+
+
 
     
 

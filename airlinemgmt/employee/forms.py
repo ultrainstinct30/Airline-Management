@@ -4,7 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, TextAreaField, Sele
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
-from airlinemgmt.models import Employee, User
+from airlinemgmt.models import Employee, User, Pilot, Crew
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -70,4 +70,12 @@ class PilotRegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('Email taken')
+
+class CrewRegistrationForm(FlaskForm):
+    pilot_id = IntegerField('Pilot ID', validators=[DataRequired()])
+    copilot_id = IntegerField('Co-Pilot ID', validators=[DataRequired()])
+    employee1_id = IntegerField('Employee1 ID', validators=[DataRequired()])
+    employee2_id = IntegerField('Employee2 ID', validators=[DataRequired()])
+    employee3_id = IntegerField('Employee3 ID', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')
 

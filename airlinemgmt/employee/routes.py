@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, request
 from flask_login import login_user, current_user, logout_user, login_required
 from airlinemgmt import db, bcrypt
-from airlinemgmt.models import Employee, User
-from airlinemgmt.employee.forms import LoginForm, UpdateForm, RegistrationForm, PilotRegistrationForm
+from airlinemgmt.models import Employee, User, Pilot, Crew
+from airlinemgmt.employee.forms import LoginForm, UpdateForm, RegistrationForm, PilotRegistrationForm, CrewRegistrationForm
 # from airlinemgmt.employee.utils import send_reset_email
 
 emp = Blueprint('emp', __name__)
@@ -75,7 +75,7 @@ def register():
 
 
 @emp.route("/pilotregister", methods=['GET', 'POST'])
-def piltregister():
+def pilotregister():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = PilotRegistrationForm()
@@ -102,7 +102,30 @@ def piltregister():
                     licence_no=form.licence_no.data,
                     experience=form.experience.data,
                     rank=form.rank.data)
+        db.session.add(pil)
+        db.session.commit()
         flash(f'Account created for {form.name.data}!', 'success')
         return redirect(url_for('user.login'))
     return render_template('pilotregister.html', title='Register', form=form)
+
+@emp.route("/crewregister", methods=['GET', 'POST'])
+def crewregister():
+    form = CrewRegistrationForm()
+    if form.validate_on_submit():
+
+        crew = Crew(pilot_id=form.pilot_id.data,
+                    copilot_id=form.copilot_id.data,
+                    employee1=form.employee1.data,
+                    employee2=form.employee2.data,
+                    employee3=form.employee3.data,
+                    )
+
+        db.session.add(crew)
+        sb.session.commit()
+
+        flash(f'Account created for {form.name.data}!', 'success')
+        return redirect(url_for('user.login'))
+    return render_template('crewregister.html', title='Register', form=form)
+
+
 

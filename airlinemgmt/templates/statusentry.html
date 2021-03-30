@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter the following details</legend>
+                <div class="form-group">
+                    {{ form.flight_id.label(class="form-control-label") }}
+                    {% if form.flight_id.errors %}
+                        {{ form.flight_id(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.flight_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.flight_id(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.crew_id.label(class="form-control-label") }}
+                    {% if form.crew_id.errors %}
+                        {{ form.crew_id(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.crew_id.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.crew_id(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.from_terminal.label(class="form-control-label") }}
+                    {% if form.from_terminal.errors %}
+                        {{ form.from_terminal(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.from_terminal.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.from_terminal(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.to_terminal.label(class="form-control-label") }}
+                    {% if form.to_terminal.errors %}
+                        {{ form.to_terminal(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.to_terminal.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.to_terminal(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.scheduled_time.label(class="form-control-label") }}
+                    {% if form.scheduled_time.errors %}
+                        {{ form.scheduled_time(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.scheduled_time.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.scheduled_time(class="form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.actual_time.label(class="form-control-label") }}
+                    {% if form.actual_time.errors %}
+                        {{ form.actual_time(class="datepicker form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.actual_time.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.actual_time(class="datepicker form-control") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
+        </small>
+    </div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for user in users %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Name {{ user.name }}</h5>
+            </div>
+            <p class="small article-content">Email Address {{ user.email }}, ID {{ user.id }}</p>
+            <p><a class="small article-content" href="{{ url_for('main.show_user', user_id=user.id) }}">Show Details</a></p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

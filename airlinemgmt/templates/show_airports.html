@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for airport in airports %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Name {{ airport.name }}</h5>
+            </div>
+            <p class="small article-content">Region {{ airport.region }}, City {{ airport.city }}, Country {{ airport.country }}</p>
+            <p class="small article-content">ID {{ airport.id }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

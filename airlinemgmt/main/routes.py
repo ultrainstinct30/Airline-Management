@@ -69,46 +69,6 @@ def admin_bookings():
     bookings = Booking.query.all()
     return render_template('show_bookings.html', bookings=bookings)
 
-@main.route("/admin/employee/<int:employee_id>")
-@login_required
-def show_employee(employee_id):
-    if not current_user.is_admin:
-        abort(403)
-    employee = Employee.query.get_or_404(employee_id)
-    return render_template('show_employee.html', employee=employee)
-
-@main.route("/admin/plane/<int:plane_id>")
-@login_required
-def show_plane(plane_id):
-    if not current_user.is_admin:
-        abort(403)
-    plane = Plane.query.get_or_404(plane_id)
-    return render_template('show_plane.html', plane=plane)
-
-@main.route("/admin/flight/<int:flight_id>")
-@login_required
-def show_flight(flight_id):
-    if not current_user.is_admin:
-        abort(403)
-    flight = Flight.query.get_or_404(flight_id)
-    return render_template('show_flight.html', flight=flight)
-
-@main.route("/admin/user/<int:user_id>")
-@login_required
-def show_user(user_id):
-    if not current_user.is_admin:
-        abort(403)
-    user = User.query.get_or_404(user_id)
-    return render_template('show_user.html', user=user)
-
-@main.route("/admin/booking/<int:booking_id>")
-@login_required
-def show_booking(booking_id):
-    if not current_user.is_admin:
-        abort(403)
-    booking = Booking.query.get_or_404(booking_id)
-    return render_template('show_booking.html', booking=booking)
-
 @main.route("/admin/add-employees")
 @login_required
 def add_employees():
@@ -140,39 +100,6 @@ def add_flights():
         abort(403)
     bookings = Booking.query.all()
     return render_template('add_flight.html', bookings=bookings)
-
-@main.route("/admin/edit-employees")
-@login_required
-def edit_employees():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_employee.html', bookings=bookings)
-
-@main.route("/admin/edit-planes")
-@login_required
-def edit_planes():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_plane.html', bookings=bookings)
-
-@main.route("/admin/edit-airports")
-@login_required
-def edit_airports():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_airport.html', bookings=bookings)
-
-@main.route("/admin/edit-flights")
-@login_required
-def edit_flights():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_flight.html', bookings=bookings)
-
 
 @main.route("/admin/employee-del/<int:employee_id>")
 @login_required
@@ -228,3 +155,14 @@ def delete_booking(booking_id):
     db.session.commit()
     flash('Deleted!', 'success')
     return redirect(url_for('main.admin_bookings'))
+
+@main.route("/admin/status-del/<int:status_id>")
+@login_required
+def delete_status(status_id):
+    if not current_user.is_admin:
+        abort(403)
+    status = Status.query.get_or_404(status_id)
+    db.session.delete(status)
+    db.session.commit()
+    flash('Deleted!', 'success')
+    return redirect(url_for('main.admin_status'))

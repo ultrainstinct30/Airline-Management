@@ -120,8 +120,8 @@ class Pilot(db.Model):
     experience = db.Column(db.Integer, nullable=False)
     rank = db.Column(db.String(1));
     id = db.Column(db.Integer, db.ForeignKey('employee.id'), primary_key=True)
-    crew_pilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.pilot_id]", lazy=True)
-    crew_copilot = db.relationship('Crew', backref='employee', foreign_keys="[Crew.copilot_id]",lazy=True)
+    crew_pilot = db.relationship('Crew', backref='pilot', foreign_keys="[Crew.pilot_id]", lazy=True)
+    crew_copilot = db.relationship('Crew', backref='copilot', foreign_keys="[Crew.copilot_id]",lazy=True)
 
     def __repr__(self):
         return f"User('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}')"

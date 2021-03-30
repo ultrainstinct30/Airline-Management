@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from airlinemgmt import db, bcrypt
-from airlinemgmt.models import User, Airport, Flight, Booking
-from airlinemgmt.bookings.forms import SearchFlightForm, BookFlightForm
+from airlinemgmt.models import User, Airport, Flight, Booking, Status
+from airlinemgmt.bookings.forms import SearchFlightForm, BookFlightForm, StatusEntryForm
 from datetime import date
 
 bookings = Blueprint('bookings', __name__)
@@ -59,4 +59,20 @@ def cancel_booking(booking_id):
     db.session.commit()
     flash(f'Your booking for flight no {booking.flight_id} has been deleted', 'success')
     return redirect(url_for('users.bookings'))
+
+@bookings.route("/statusentry", methods=['GET', 'POST'])
+def statusentry():
+    form = StatusEntryForm()
+    if form.validate_on_submit():
+        status = Status(flight_id=form.flight_id.data,
+                        crew_id=form.crew_id.data,
+                        from_terminal=form.from_terminal.data,
+                        to_terminal=form.to_terminal.data,
+                        scheduled_time=form.scheduled_time.data,
+                        actual_time=form.actual_time.data
+                        )
+        db.session.add(status)
+        db.session.commit()
+        flash(f'Status no. {status.id} added')
+    return render_template('statusentry.html', form=form)
 

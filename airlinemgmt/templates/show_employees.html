@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for emp in employees %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Name {{ emp.user.name }}</h5>
+            </div>
+            <p class="small article-content">ID {{ emp.id }}, Position {{ emp.position }}</p>
+            <p><a class="small article-content" href="{{ url_for('main.show_employee', employee_id=emp.id) }}">Show Details</a></p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

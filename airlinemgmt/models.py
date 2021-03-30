@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     bookings = db.relationship('Booking', backref='user', lazy=True)
     employee = db.relationship('Employee', backref='user', lazy=True, uselist=False)
     is_employee = db.Column(db.Boolean, default=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
     @hybrid_property
     def age(self):

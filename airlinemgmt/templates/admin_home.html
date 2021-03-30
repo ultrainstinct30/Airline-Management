@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h3>Admin functions</h3>
+    <div class="container">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_employees') }}">Show Employees</a></br>
+            <a class="small" href="{{ url_for('main.add_employees') }}">Add Employees</a>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_planes') }}">Show Planes</a></br>
+            <a class="small" href="{{ url_for('main.add_planes') }}">Add Planes</a>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_airports') }}">Show Airports</a></br>
+            <a class="small" href="{{ url_for('main.add_airports') }}">Add Airports</a>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_flights') }}">Show Flights</a></br>
+            <a class="small" href="{{ url_for('main.add_flights') }}">Add Flights</a>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_bookings') }}">Show Bookings</a></br>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_users') }}">Show Users</a></br>
+            </li>
+        </ul>
+    </div>
+{% endblock content %}

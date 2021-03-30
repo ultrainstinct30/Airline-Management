@@ -1,7 +1,7 @@
 from flask import render_template, request, Blueprint, flash, redirect, url_for, abort
 from flask_login import current_user, login_required
 from airlinemgmt import db, bcrypt
-from airlinemgmt.models import User, Flight, Airport, Employee, Pilot, Plane, Booking, Status
+from airlinemgmt.models import User, Flight, Airport, Employee, Pilot, Plane, Booking, Status, Crew
 from airlinemgmt.bookings.forms import SearchFlightForm
 from airlinemgmt.main.forms import LoginForm, UpdateForm, RegistrationForm, PilotRegistrationForm, CrewRegistrationForm, FlightRegistrationForm, PlaneRegistrationForm, AirportRegistrationForm, StatusEntryForm 
 
@@ -148,7 +148,7 @@ def add_employees():
         return redirect(url_for('main.add_employees'))
     return render_template('add_employee.html', form=form)
 
-@main.route("/admin/add-planes")
+@main.route("/admin/add-planes", methods=['GET', 'POST'])
 @login_required
 def add_planes():
     if not current_user.is_admin:
@@ -168,7 +168,7 @@ def add_planes():
         return redirect(url_for('main.add_planes'))
     return render_template('add_plane.html', form=form)
 
-@main.route("/admin/add-airports")
+@main.route("/admin/add-airports", methods=['GET', 'POST'])
 @login_required
 def add_airports():
     if not current_user.is_admin:
@@ -180,14 +180,14 @@ def add_airports():
                         city=form.city.data,
                         country=form.country.data,
                         num_terminals=form.num_terminals.data)
-        db.session.add(plane)
+        db.session.add(port)
         db.session.commit()
-        flash(f'Airport created {airport.id}!', 'success')
+        flash(f'Airport created {port.id}!', 'success')
         return redirect(url_for('main.add_airports'))
 
     return render_template('add_airport.html', form=form)
 
-@main.route("/admin/add-flights")
+@main.route("/admin/add-flights", methods=['GET', 'POST'])
 @login_required
 def add_flights():
     if not current_user.is_admin:
@@ -200,7 +200,7 @@ def add_flights():
                         day=form.day.data,
                         depart_at=form.depart_at.data,
                         duration=form.duration.data)
-        db.session.add(plane)
+        db.session.add(flight)
         db.session.commit()
         flash(f'Flight created {flight.id}!', 'success')
         return redirect(url_for('main.add_flights'))
@@ -249,20 +249,20 @@ def add_crews():
 
         crew = Crew(pilot_id=form.pilot_id.data,
                     copilot_id=form.copilot_id.data,
-                    employee1=form.employee1.data,
-                    employee2=form.employee2.data,
-                    employee3=form.employee3.data,
+                    employee1_id=form.employee1_id.data,
+                    employee2_id=form.employee2_id.data,
+                    employee3_id=form.employee3_id.data,
                     )
 
         db.session.add(crew)
-        sb.session.commit()
+        db.session.commit()
 
         flash(f'Crew created {crew.id}!', 'success')
         return redirect(url_for('main.add_crews'))
     return render_template('add_crew.html', form=form)
 
 @main.route("/admin/add-status", methods=['GET', 'POST'])
-def add_ststus():
+def add_status():
     if not current_user.is_admin:
         abort(403)
     form = StatusEntryForm()
@@ -277,12 +277,11 @@ def add_ststus():
                         )
 
         db.session.add(status)
-        sb.session.commit()
+        db.session.commit()
 
         flash(f'Status created {status.id}!', 'success')
         return redirect(url_for('main.add_status'))
     return render_template('add_status.html', form=form)
-
 
 
 @main.route("/admin/employee-del/<int:employee_id>")
@@ -291,7 +290,12 @@ def delete_employee(employee_id):
     if not current_user.is_admin:
         abort(403)
     employee = Employee.query.get_or_404(employee_id)
+    pilot = employee.pilot
+    user = employee.user
+    if pilot is not None:
+        db.session.delete(pilot)
     db.session.delete(employee)
+    db.session.delete(user)
     db.session.commit()
     flash('Deleted!', 'success')
     return redirect(url_for('main.admin_employees'))
@@ -350,3 +354,41 @@ def delete_status(status_id):
     db.session.commit()
     flash('Deleted!', 'success')
     return redirect(url_for('main.admin_status'))
+
+@main.route("/admin/crew-del/<int:crew_id>")
+@login_required
+def delete_crew(crew_id):
+    if not current_user.is_admin:
+        abort(403)
+    crew = Crew.query.get_or_404(crew_id)
+    db.session.delete(crew)
+    db.session.commit()
+    flash('Deleted!', 'success')
+    return redirect(url_for('main.admin_crew'))
+
+@main.route("/admin/crew")
+@login_required
+def admin_crew():
+    if not current_user.is_admin:
+        abort(403)
+    crew = Crew.query.all()
+    return render_template('show_crews.html', crews=crew )
+
+@main.route("/admin/airport-del/<int:airport_id>")
+@login_required
+def delete_airport(airport_id):
+    if not current_user.is_admin:
+        abort(403)
+    airport = Airport.query.get_or_404(airport_id)
+    db.session.delete(airport)
+    db.session.commit()
+    flash('Deleted!', 'success')
+    return redirect(url_for('main.admin_airports'))
+
+@main.route("/admin/status")
+@login_required
+def admin_status():
+    if not current_user.is_admin:
+        abort(403)
+    status = Status.query.all()
+    return render_template('show_status.html', status=status)

@@ -6,7 +6,7 @@
             <div class="article-metadata">
               <h5 class="mr-2">Name {{ plane.name }}</h5>
             </div>
-            <p class="small article-content">ID {{ plane.id }}</p>
+            <p class="small article-content">ID:{{ plane.id }} Manufacturer:{{plane.manufacturer}}</p>
             <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_plane', plane_id=plane.id) }}">Delete Plane</a></p>
           </div>
         </article>

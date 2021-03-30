@@ -83,7 +83,7 @@ class Flight(db.Model):
     depart_at = db.Column(db.Time, nullable=False)
     duration = db.Column(db.Time, nullable=False)
     bookings = db.relationship('Booking', backref='flight', lazy=True)
-    Status = db.relationship('Status', backref='flight', lazy=True)
+    status = db.relationship('Status', backref='flight', lazy=True)
 
     def __repr__(self):
         return f"Flight('{self.id}', '{self.from_id}', '{self.to_id}', '{self.day}')"
@@ -113,7 +113,7 @@ class Employee(db.Model):
     crew_emp_3 = db.relationship('Crew', backref='employee3', foreign_keys="[Crew.employee3_id]", lazy=True)
 
     def __repr__(self):
-        return f"User('{self.user.name}', '{self.user.email}', '{self.user.dob}', '{self.position}', '{self.salary}')"
+        return f"Employee('{self.user.name}', '{self.user.email}', '{self.user.dob}', '{self.position}', '{self.salary}')"
 
 class Pilot(db.Model):
     licence_no = db.Column(db.Integer, nullable=False)
@@ -124,7 +124,7 @@ class Pilot(db.Model):
     crew_copilot = db.relationship('Crew', backref='copilot', foreign_keys="[Crew.copilot_id]",lazy=True)
 
     def __repr__(self):
-        return f"User('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}', '{self.experience}', '{self.rank}')"
+        return f"Pilot('{self.employee.user.name}', '{self.employee.user.email}', '{self.employee.user.dob}', '{self.experience}', '{self.rank}')"
 
 class Crew(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -136,7 +136,7 @@ class Crew(db.Model):
     crew_status = db.relationship('Status', backref='crew', lazy=True, uselist=False)
 
     def __repr__(self):
-        return f"User('{self.pilot_id}', '{self.copilot_id}', '{self.employee1_id}', '{self.employee2_id}', '{self.employee3_id}')"
+        return f"Crew('{self.pilot_id}', '{self.copilot_id}', '{self.employee1_id}', '{self.employee2_id}', '{self.employee3_id}')"
 
 
 class Status(db.Model):
@@ -145,11 +145,11 @@ class Status(db.Model):
     crew_id = db.Column(db.Integer, db.ForeignKey('crew.id'), nullable=False)
     from_terminal = db.Column(db.Integer, nullable=False)
     to_terminal = db.Column(db.Integer, nullable=False)
-    scheduled_time = db.Column(db.Time, nullable=False)
-    actual_time = db.Column(db.Time)
+    scheduled_time = db.Column(db.DateTime, nullable=False)
+    actual_time = db.Column(db.DateTime)
 
     def __repr__(self):
-        return f"User('{self.flight_id}', '{self.crew_id}', '{self.from_terminal}', '{self.to_terminal}', '{self.scheduled_time}', '{self.actual_time}')"
+        return f"Status('{self.flight_id}', '{self.crew_id}', '{self.from_terminal}', '{self.to_terminal}', '{self.scheduled_time}', '{self.actual_time}')"
 
 
 

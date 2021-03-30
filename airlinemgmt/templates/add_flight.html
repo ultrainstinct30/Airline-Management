@@ -60,14 +60,14 @@
                 <div class="form-group">
                     {{ form.depart_at.label(class="form-control-label") }}
                     {% if form.depart_at.errors %}
-                        {{ form.depart_at(class="timepicker form-control is-invalid") }}
+                        {{ form.depart_at(class=" form-control is-invalid") }}
                         <div class="invalid-feedback">
                             {% for error in form.depart_at.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.depart_at(class="timepicker form-control") }}
+                        {{ form.depart_at(class=" form-control") }}
                     {% endif %}
                 </div>
                 <div class="form-group">

@@ -8,7 +8,7 @@
             </div>
             <p class="small article-content">Booked by {{ booking.user.name }}, {{ booking.user.email }}</p>
             <p class="small article-content">Travel Date {{ booking.travel_date }}, Booked on {{ booking.booking_time.strftime('%Y-%m-%d %H:%M') }}</p>
-            <p class="small article-content">ID {{ airport.id }}</p>
+            <p class="small article-content">ID {{ booking.id }}</p>
             <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_booking', booking_id=booking.id) }}">Delete Booking</a></p>
           </div>
         </article>

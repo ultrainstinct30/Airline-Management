@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for crew in crews %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <h5 class="mr-2">Crew No. {{ crew.id }}</h5>
+            </div>
+            <p class="small article-content">Flight {{crew.crew_status.flight_id }}</p>
+            <p class="small article-content">Pilot {{ crew.pilot_id }}, Co Pilot {{ crew.copilot_id }}</p>
+            <p class="small article-content">Employees {{ crew.employee1_id }}, {{ crew.employee2_id }}, {{ crew.employee3_id }}</p>
+            <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_crew', crew_id=crew.id) }}">Delete Crew</a></p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

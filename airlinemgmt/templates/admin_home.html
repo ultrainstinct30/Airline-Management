@@ -6,6 +6,7 @@
             <li class="list-group-item">
             <a href="{{ url_for('main.admin_employees') }}">Show Employees</a></br>
             <a class="small" href="{{ url_for('main.add_employees') }}">Add Employees</a>
+            <a class="small" href="{{ url_for('main.add_pilots') }}">Add Pilots</a>
             </li>
             <li class="list-group-item">
             <a href="{{ url_for('main.admin_planes') }}">Show Planes</a></br>
@@ -16,8 +17,16 @@
             <a class="small" href="{{ url_for('main.add_airports') }}">Add Airports</a>
             </li>
             <li class="list-group-item">
+            <a href="{{ url_for('main.admin_crew') }}">Show Crews</a></br>
+            <a class="small" href="{{ url_for('main.add_crews') }}">Add Crews</a>
+            </li>
+            <li class="list-group-item">
             <a href="{{ url_for('main.admin_flights') }}">Show Flights</a></br>
             <a class="small" href="{{ url_for('main.add_flights') }}">Add Flights</a>
+            </li>
+            <li class="list-group-item">
+            <a href="{{ url_for('main.admin_status') }}">Show Status</a></br>
+            <a class="small" href="{{ url_for('main.add_status') }}">Add Status</a>
             </li>
             <li class="list-group-item">
             <a href="{{ url_for('main.admin_bookings') }}">Show Bookings</a></br>

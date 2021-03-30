@@ -7,7 +7,12 @@
               <h5 class="mr-2">Flight No. {{ stat.flight_id }}</h5>
             </div>
             <p class="small article-content">From Terminal {{ stat.from_terminal }}, To Terminal {{ stat.to_terminal }}</p>
-            <p class="small article-content">Scheduled Time {{ stat.schedule_time.strftime('%H:%M') }}, Actual Time {{ stat.actual_time.strftime('%H:%M') }}</p>
+            <p class="small article-content">Scheduled Time {{ stat.scheduled_time.strftime('%H:%M') }}, Actual Time {{ stat.actual_time.strftime('%H:%M') }}</p>
+            <p class="small article-content">Pilot {{stat.crew.pilot.id}}</p>
+            <p class="small article-content">Copilot {{stat.crew.copilot.id}}</p>
+            <p class="small article-content">Employee {{stat.crew.employee1.id}}</p>
+            <p class="small article-content">Employee {{stat.crew.employee2.id}}</p>
+            <p class="small article-content">Employee {{stat.crew.employee3.id}}</p>
           </div>
         </article>
     {% endfor %}

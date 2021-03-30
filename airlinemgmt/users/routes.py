@@ -39,6 +39,8 @@ def login():
             login_user(user, remember=form.remember.data)
             if user.is_admin:
                 return redirect(url_for('main.admin'))
+            if user.is_employee:
+                return redirect(url_for('emp.emphome'))
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:

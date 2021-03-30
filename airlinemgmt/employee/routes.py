@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, request
 from flask_login import login_user, current_user, logout_user, login_required
 from airlinemgmt import db, bcrypt
-from airlinemgmt.models import Employee, User, Pilot, Crew
+from airlinemgmt.models import Employee, User, Pilot, Crew, Status
 from airlinemgmt.employee.forms import LoginForm, UpdateForm, RegistrationForm, PilotRegistrationForm, CrewRegistrationForm
 # from airlinemgmt.employee.utils import send_reset_email
 
@@ -21,9 +21,10 @@ def login():
         return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
-        emp = Employee.query.filter_by(email=form.email.data).first()
-        if emp and bcrypt.check_password_hash(emp.password, form.password.data):
-            login_user(emp, remember=form.remember.data)
+        user = User.query.filter_by(email=form.email.data).first()
+        emp = Employee.query.filter_by(id=user.id).first()
+        if emp and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('emp.emphome'))
         else:

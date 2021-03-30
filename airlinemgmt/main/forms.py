@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, BooleanField, IntegerField
-from wtforms.fields.html5 import DateField, TimeField, DateTimeLocalField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField, BooleanField, IntegerField, TimeField, DateTimeField
+from wtforms.fields.html5 import DateField, DateTimeLocalField 
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from airlinemgmt.models import Employee, User, Pilot, Crew, Status
@@ -41,7 +41,7 @@ class RegistrationForm(FlaskForm):
     joining_date = DateField('Date of Joining', validators=[DataRequired()])
     salary = StringField('Salary', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password (*)', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Submit')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -64,7 +64,7 @@ class PilotRegistrationForm(FlaskForm):
     licence_no = IntegerField('Licence No.', validators=[DataRequired()])
     experience = IntegerField('Experience', validators=[DataRequired()])
     rank = SelectField('Rank', choices=[('J', 'Junior'), ('S', 'Senior')])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Submit')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -77,15 +77,15 @@ class CrewRegistrationForm(FlaskForm):
     employee1_id = IntegerField('Employee1 ID', validators=[DataRequired()])
     employee2_id = IntegerField('Employee2 ID', validators=[DataRequired()])
     employee3_id = IntegerField('Employee3 ID', validators=[DataRequired()])
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Submit')
 
 class FlightRegistrationForm(FlaskForm):
     plane_id = IntegerField('Plane No.', validators=[DataRequired()])
     from_id = IntegerField('From Airport', validators=[DataRequired()])
     to_id = IntegerField('To Airport', validators=[DataRequired()])
     day = SelectField('Day', choices=[('MONDAY', 'MONDAY'), ('TUESDAY', 'TUESDAY'), ('WEDNESDAY', 'WEDNESDAY'), ('THURSDAY', 'THURSDAY'), ('FRIDAY', 'FRIDAY'), ('SATURDAY', 'SATURDAY'), ('SUNDAY', 'SUNDAY')])
-    depart_at = TimeField('Usual Departure Time', validators=[DataRequired()], format='%H:%M:%S')
-    duration = TimeField('Usual Flight Duration', validators=[DataRequired()], format='%H:%M:%S')
+    depart_at = TimeField('Usual Departure Time', validators=[DataRequired()], format='%H:%M')
+    duration = TimeField('Usual Flight Duration', validators=[DataRequired()], format='%H:%M')
     submit = SubmitField('Submit')
     
 
@@ -94,8 +94,8 @@ class PlaneRegistrationForm(FlaskForm):
     manufacturer = StringField('Manufacturer', validators=[DataRequired()])
     mfd_date = DateField('Manufacturing Date', validators=[DataRequired()])
     engine_chk = DateTimeLocalField('Last Engine Check', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
-    fuel_chk = DateTimeLocalField('Last Fuel Check', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
-    part_chk = DateTimeLocalField('Last Part Check', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
+    fuel_chk = DateTimeField('Last Fuel Check', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
+    part_chk = DateTimeField('Last Part Check', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
     capacity = IntegerField('Capacity', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

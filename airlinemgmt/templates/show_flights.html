@@ -9,7 +9,7 @@
             <p class="small article-content">From {{ flight.from_airport.name }}, {{ flight.from_airport.region }}, {{ flight.from_airport.city }}, {{ flight.from_airport.country }}</p>
             <p class="small article-content">To {{ flight.to_airport.name }}, {{ flight.to_airport.region }}, {{ flight.to_airport.city }}, {{ flight.to_airport.country }}</p>
             <p class="small article-content">On {{ flight.day }} {{ flight.depart_at.strftime('%H:%M') }}, Duration {{ flight.duration.strftime('%H:%M') }}</p>
-            <p><a class="small article-content" href="{{ url_for('main.show_flight', flight_id=flight.id) }}">Show Details</a></p>
+            <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_flight', flight_id=flight.id) }}">Delete Flight</a></p>
           </div>
         </article>
     {% endfor %}

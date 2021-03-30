@@ -285,39 +285,6 @@ def add_ststus():
 
 
 
-@main.route("/admin/edit-employees")
-@login_required
-def edit_employees():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_employee.html', bookings=bookings)
-
-@main.route("/admin/edit-planes")
-@login_required
-def edit_planes():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_plane.html', bookings=bookings)
-
-@main.route("/admin/edit-airports")
-@login_required
-def edit_airports():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_airport.html', bookings=bookings)
-
-@main.route("/admin/edit-flights")
-@login_required
-def edit_flights():
-    if not current_user.is_admin:
-        abort(403)
-    bookings = Booking.query.all()
-    return render_template('edit_flight.html', bookings=bookings)
-
-
 @main.route("/admin/employee-del/<int:employee_id>")
 @login_required
 def delete_employee(employee_id):
@@ -372,3 +339,14 @@ def delete_booking(booking_id):
     db.session.commit()
     flash('Deleted!', 'success')
     return redirect(url_for('main.admin_bookings'))
+
+@main.route("/admin/status-del/<int:status_id>")
+@login_required
+def delete_status(status_id):
+    if not current_user.is_admin:
+        abort(403)
+    status = Status.query.get_or_404(status_id)
+    db.session.delete(status)
+    db.session.commit()
+    flash('Deleted!', 'success')
+    return redirect(url_for('main.admin_status'))

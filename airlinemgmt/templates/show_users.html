@@ -7,7 +7,7 @@
               <h5 class="mr-2">Name {{ user.name }}</h5>
             </div>
             <p class="small article-content">Email Address {{ user.email }}, ID {{ user.id }}</p>
-            <p><a class="small article-content" href="{{ url_for('main.show_user', user_id=user.id) }}">Show Details</a></p>
+            <p><a class="btn btn-danger btn-sm m-1" href="{{ url_for('main.delete_user', user_id=user.id) }}">Delete User</a></p>
           </div>
         </article>
     {% endfor %}

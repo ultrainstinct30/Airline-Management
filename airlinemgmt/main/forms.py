@@ -79,7 +79,6 @@ class CrewRegistrationForm(FlaskForm):
     employee3_id = IntegerField('Employee3 ID', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
-
 class FlightRegistrationForm(FlaskForm):
     plane_id = IntegerField('Plane No.', validators=[DataRequired()])
     from_id = IntegerField('From Airport', validators=[DataRequired()])
@@ -117,4 +116,3 @@ class StatusEntryForm(FlaskForm):
     scheduled_time = DateTimeLocalField('Scheduled Time', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
     actual_time = DateTimeLocalField('Actual Time', validators=[DataRequired()], format='%d-%m-%Y %H:%M:%S')
     submit = SubmitField('Submit')
-

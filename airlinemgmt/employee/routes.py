@@ -7,6 +7,14 @@ from airlinemgmt.employee.forms import LoginForm, UpdateForm, RegistrationForm, 
 
 emp = Blueprint('emp', __name__)
 
+@emp.route("/emphome")
+@login_required
+def emphome():
+    if not current_user.is_employee:
+        abort(403)
+    status = Status.query.all()
+    return render_template('show_status_emp.html', status=status)
+
 @emp.route("/emplogin", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -17,7 +25,7 @@ def login():
         if emp and bcrypt.check_password_hash(emp.password, form.password.data):
             login_user(emp, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('emp.emphome'))
         else:
             flash('Login Unsuccessful. Check email and pwd', 'danger')
     return render_template('emplogin.html', title='EmpLogin', form=form)
@@ -43,35 +51,6 @@ def update():
     else:
         flash('Unable to update', 'danger')
     return render_template('empupdate.html', title='EmpUpdate', form=form)
-
-
-@emp.route("/empregister", methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_pw = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(name=form.name.data,
-                    email=form.email.data,
-                    address=form.address.data,
-                    pincode=form.pincode.data,
-                    dob=form.dob.data,
-                    phnum=form.phnum.data,
-                    gender=form.gender.data,
-                    password=hashed_pw,
-                    is_employee=True)
-        db.session.add(user)
-        db.session.commit()
-        empl = Employee(id=user.id,
-                        position=form.position.data,
-                        joining_date=form.joining_date.data,
-                        salary=form.salary.data)
-        db.session.add(empl)
-        db.session.commit()
-        flash(f'Account created for {form.name.data}!', 'success')
-        return redirect(url_for('user.login'))
-    return render_template('empregister.html', title='Register', form=form)
 
 
 @emp.route("/pilotregister", methods=['GET', 'POST'])
